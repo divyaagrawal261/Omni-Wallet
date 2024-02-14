@@ -15,9 +15,17 @@ const transactionSchema=mongoose.Schema({
         type:Number,
         required:[true, "Please enter an amount"]
     },
+    type:{
+        type:String,
+        required:[true, "Please specify a transaction type"],
+        default:"expense"
+    },
     date:{
         type:Date,
         required:[true, "Please enter a Date"]
+    },
+    note:{
+        type:String
     }
 })
 
