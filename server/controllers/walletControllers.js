@@ -16,17 +16,27 @@ const getWallets=asycnHandler(async(req,res)=>{
 const createWallet=asycnHandler(async(req,res)=>{
     const user_id=req.user.id;
     const {walletBalance, walletName}=req.body;
+    try{
+    if(walletBalance<0)
+    throw new Error("Please enter a non-negative balance");
+
     if(!walletName)
     res.status(400).json({message:"Please enter a Wallet Name"});
 
     const wallet=await Wallet.create({user_id, walletBalance, walletName});
 
     const user=await User.findOne({_id:user_id});
-    user.currentBalance+=walletBalance
+    user.currentBalance=Number(user.currentBalance)+Number(walletBalance);
 
     await user.save();
 
     res.status(201).json(wallet);
+    }
+    catch(err)
+    {
+        res.status(400).json(err.message);
+    }
+
 })
 
 //@desc delete a Wallet
@@ -34,12 +44,16 @@ const createWallet=asycnHandler(async(req,res)=>{
 //@access private
 const deleteWallet=asycnHandler(async(req,res)=>{
     const user_id=req.user.id;
-    const walletId=req.body;
+    const _id=req.params.walletId;
 
-    const wallet =await Wallet.findOneAndDelete({user_id, walletId})
+    const wallet =await Wallet.findOneAndDelete({user_id,_id})
 
     if(!wallet)
     res.status(400).json({message:"Wallet does not exist"});
+
+    const user=await User.findOne({_id:user_id});
+    user.currentBalance-=Number(wallet.walletBalance);
+    await user.save();
     
     res.status(201).json(wallet);
 })
@@ -51,7 +65,10 @@ const updateWallet=asycnHandler(async(req,res)=>{
     const user_id=req.user.id;
     const {walletId, walletName}=req.body;
 
-    const wallet =await Wallet.findOneAndUpdate({user_id, walletId})
+    const wallet = await Wallet.findOneAndUpdate(
+        { user_id: user_id, _id: walletId },
+        { $set: { walletName: walletName } },
+        { new: true });
 
     if(!wallet)
     res.status(400).json({message:"Wallet does not exist"});
