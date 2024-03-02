@@ -14,24 +14,37 @@ const getAllTransactions=asycnHandler(async(req,res)=>{
 //@route POST /api/transaction/
 //@access private
 const createTransaction=asycnHandler(async(req,res)=>{
+
     const user_id=req.user.id;
-    const {wallet_Id, amount, type, date, note}=req.body;
-    
-    const wallet=await Wallet.findOne({user_id, _id:wallet_Id});
-    
-    if(!wallet)
-    return res.status(404).json({message:"Wallet does not exist"})
-    
-    const transaction=await Transaction.create({user_id, wallet_Id, amount, date, type, note});
+    const {wallet_id, amount, note, date, type}=req.body;
+    try{
+        if(amount<=0)
+        throw new Error("Amount should be greater than 0");
 
-    if(type=="income")
-    wallet.balance+=amount
-    else if(type=="expense")
-    wallet.balance-=amount
+        const wallet=await Wallet.findOne({user_id, _id:wallet_id});
+        
+        if(!wallet)
+        throw new Error("Wallet does not exist"); 
 
-    await wallet.save();
+        if(type==="expense")
+        {
+            if(wallet.balance<amount)
+            throw new Error("Insufficient balance");
+            wallet.walletBalance-=amount;
+        }
+        else
+        {
+            wallet.walletBalance+=Number(amount);
+        }
 
-    res.status(200).json(wallet,transaction);
+        await wallet.save();
+    
+        res.status(201).json(wallet);
+    }
+    catch(err)
+    {
+        res.status(400).json(err.message);
+    }
 })
 
 //@desc update a transaction

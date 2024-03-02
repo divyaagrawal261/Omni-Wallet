@@ -9,6 +9,7 @@ import {User} from "../models/userModel.js";
 const createUser=asyncHandler(async(req,res)=>{
     const {username, email, password}=req.body
 
+    try{
     if(!username || !email || !password)
     {
         res.status(400);
@@ -36,6 +37,11 @@ const createUser=asyncHandler(async(req,res)=>{
         throw new Error("User data is not valid");
     }
    res.json({message:"Register the user"});
+}
+catch(err)
+{
+    res.status(400).json(err.message);
+}
 });
 
 //@desc Login user
@@ -44,6 +50,7 @@ const createUser=asyncHandler(async(req,res)=>{
 const loginUser=asyncHandler(async(req,res)=>{
     const {email,password}=req.body;
 
+    try{
     if(!email || !password){
         res.status(400);
         throw new Error("All fields are mandatory!");
@@ -56,7 +63,7 @@ const loginUser=asyncHandler(async(req,res)=>{
             user:{
                 username: user.username,
                 email: user.email,
-                id: user.id,
+                id: user.id
             },
         },process.env.ACCESS_TOKEN_SECRET,{expiresIn:"60m"});
         console.log(accessToken);
@@ -66,14 +73,25 @@ const loginUser=asyncHandler(async(req,res)=>{
         res.status(401);
         throw new Error("Email or Password does not match");
     }
+}
+catch(err)
+{
+    res.status(400).json(err.message);
+}
  });
 
 //@desc Current user info
 //@route GET /api/user/current
 //@access private 
 const currentUser=asyncHandler(async(req,res)=>{
+    try{
     console.log(req.user)
     res.json(req.user);
+    }
+    catch(err)
+    {
+        res.status(400).json(err.message);
+    }
  });
 
 

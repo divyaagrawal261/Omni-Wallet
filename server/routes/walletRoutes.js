@@ -9,8 +9,8 @@ import {
 const Router = express.Router();
 Router.use(validateToken)
 Router.post("/create",createWallet)
-  .delete("/delete/:walletId", deleteWallet)
-  .get("/",validateToken,getWallets)
-  .patch("/update", updateWallet);
+      .delete("/delete/:walletId", deleteWallet)
+      .get("/",validateToken,getWallets)
+      .patch("/update", updateWallet);
 
 export default Router;

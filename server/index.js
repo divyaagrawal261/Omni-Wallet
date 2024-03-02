@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDb from "./config/dbConnect.js";
 import walletRoutes from "./routes/walletRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
 dotenv.config();
 
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // app.use("/api/contacts",require("./routes/contactRoutes"));
 app.use("/api/users",userRoutes);
 app.use("/api/wallets",walletRoutes);
+app.use("/api/transactions",transactionRoutes);
 
 // app.use(errorHandler);
 

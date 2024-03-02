@@ -1,5 +1,4 @@
 import express from "express";
-// const validateToken = require("../middleware/validateTokenHandler");
 const router=express.Router();
 import { createUser, loginUser, currentUser } from "../controllers/userControllers.js";
 import validateToken from "../middlewares/validateTokenHandler.js";
