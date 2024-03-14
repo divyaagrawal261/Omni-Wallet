@@ -94,5 +94,4 @@ const currentUser=asyncHandler(async(req,res)=>{
     }
  });
 
-
 export {createUser,loginUser,currentUser}  

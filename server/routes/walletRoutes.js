@@ -11,6 +11,6 @@ Router.use(validateToken)
 Router.post("/create",createWallet)
       .delete("/delete/:walletId", deleteWallet)
       .get("/",validateToken,getWallets)
-      .patch("/update", updateWallet);
+      .patch("/update/:walletId", updateWallet);
 
 export default Router;

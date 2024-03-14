@@ -1,6 +1,7 @@
 import {Transaction} from "../models/transactionModel.js";
 import asycnHandler from "express-async-handler";
 import { Wallet } from "../models/walletModel.js";
+import { User } from "../models/userModel.js";
 
 //@desc Get all Transactions
 //@route GET /api/transactions
@@ -11,7 +12,7 @@ const getAllTransactions=asycnHandler(async(req,res)=>{
 })
 
 //@desc create a Transaction
-//@route POST /api/transaction/
+//@route POST /api/transaction/create
 //@access private
 const createTransaction=asycnHandler(async(req,res)=>{
 
@@ -25,16 +26,20 @@ const createTransaction=asycnHandler(async(req,res)=>{
         
         if(!wallet)
         throw new Error("Wallet does not exist"); 
-
-        if(type==="expense")
-        {
-            if(wallet.balance<amount)
-            throw new Error("Insufficient balance");
-            wallet.walletBalance-=amount;
+    
+    if(type==="expense")
+    {
+        if(wallet.balance<amount)
+        throw new Error("Insufficient balance");
+        wallet.walletBalance-=amount;
+        const transaction=await Transaction.create({user_id, wallet_id, amount, date, note,type});
+        const user=await User.findOneAndUpdate({_id:user_id},{$inc:{currentBalance:-amount}});
         }
         else
         {
             wallet.walletBalance+=Number(amount);
+            const user=await User.findOneAndUpdate({_id:user_id},{$inc:{currentBalance:amount}});
+            const transaction=await Transaction.create({user_id, wallet_id, amount, date, note,type});
         }
 
         await wallet.save();
@@ -48,17 +53,23 @@ const createTransaction=asycnHandler(async(req,res)=>{
 })
 
 //@desc update a transaction
-//@route PATCH /api/transaction/
+//@route PATCH /api/transaction/    
 //@access private
 const updateTransaction=asycnHandler(async(req,res)=>{
     const user_id=req.user.id;
-    const {wallet_id, note, transaction_id}=req.body;
-
-    const transaction=await Transaction.findOne({user_id, wallet_id, transaction_id});
-
-    transaction.note=note;
-    await transaction.save();
+    const {wallet_id, note}=req.body;
+    const transaction_id=req.params.transactionId;
+    try{
+    const transaction=await Transaction.findOneAndUpdate({user_id, wallet_id, _id: transaction_id},{$set:{note}});
     
+    if(!transaction)
+    throw new Error("No such transaction found");
+
     res.status(201).json(transaction);
+    }
+    catch(err)
+    {
+        res.status(400).json(err.message);
+    }
 })
 export {createTransaction, updateTransaction, getAllTransactions};
