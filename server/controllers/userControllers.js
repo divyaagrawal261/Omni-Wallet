@@ -66,7 +66,6 @@ const loginUser=asyncHandler(async(req,res)=>{
                 id: user.id
             },
         },process.env.ACCESS_TOKEN_SECRET,{expiresIn:"60m"});
-        console.log(accessToken);
         res.status(200).json({accessToken});
     }
     else{
@@ -85,7 +84,6 @@ catch(err)
 //@access private 
 const currentUser=asyncHandler(async(req,res)=>{
     try{
-    console.log(req.user)
     res.json(req.user);
     }
     catch(err)

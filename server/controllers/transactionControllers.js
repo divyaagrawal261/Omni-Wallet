@@ -2,6 +2,8 @@ import {Transaction} from "../models/transactionModel.js";
 import asycnHandler from "express-async-handler";
 import { Wallet } from "../models/walletModel.js";
 import { User } from "../models/userModel.js";
+import { getMonthlyTransactions } from "../models/transactionModel.js";
+import expressAsyncHandler from "express-async-handler";
 
 //@desc Get all Transactions
 //@route GET /api/transactions
@@ -72,4 +74,12 @@ const updateTransaction=asycnHandler(async(req,res)=>{
         res.status(400).json(err.message);
     }
 })
-export {createTransaction, updateTransaction, getAllTransactions};
+
+//@desc update a transaction
+//@route PATCH /api/transaction/    
+//@access private
+const getTheMonthlyTransactions=expressAsyncHandler(async(req, res)=>{
+    const transactions=await getMonthlyTransactions(req.params.year, req.params.month);
+    res.status(200).json(transactions);
+})
+export {createTransaction, updateTransaction, getAllTransactions, getTheMonthlyTransactions};

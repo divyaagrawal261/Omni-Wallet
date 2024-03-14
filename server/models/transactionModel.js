@@ -29,4 +29,32 @@ const transactionSchema=mongoose.Schema({
     }
 })
 
+export async function getMonthlyTransactions(year, month) {
+    const startDate = new Date(Date.UTC(year, month - 1, 1)); 
+    const endDate = new Date(Date.UTC(year, month, 1));
+  
+    const monthlyTransactions = await Transaction.aggregate([
+      {
+        $match: {
+          date: {
+            $gte: startDate,
+            $lt: endDate
+          }
+        }
+      },
+      {
+        $group: {
+          _id: { year: { $year: "$date" }, month: { $month: "$date" } },
+          totalAmount: { $sum: "$amount" },
+          transactions: { $push: "$$ROOT" } 
+        }
+      },
+      {
+        $sort: { "_id.year": 1, "_id.month": 1 }
+      }
+    ]);
+  
+    return monthlyTransactions;
+  }
+
 export const Transaction=new mongoose.model("Transaction",transactionSchema);
