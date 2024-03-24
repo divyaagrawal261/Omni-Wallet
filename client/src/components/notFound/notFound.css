@@ -1,0 +1,10 @@
+img{
+    height: 300px;
+}
+div{
+    justify-content: center;
+    align-items: center;
+}
+body{
+    background-color: #f6f6f6;
+}

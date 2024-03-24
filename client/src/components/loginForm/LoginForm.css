@@ -1,0 +1,16 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    border: 1px solid rgba(128, 128, 128, 0.452);
+    border-radius: 5px;
+}
+button{
+    border-radius: 5px;
+}
+a:hover{
+    cursor: pointer;
+}
