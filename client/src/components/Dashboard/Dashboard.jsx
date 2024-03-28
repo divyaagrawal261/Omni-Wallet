@@ -3,12 +3,13 @@ import NavBar from "../NavBar/Navbar";
 import Card from "./WalletCard";
 import { FaWallet } from "react-icons/fa";
 import OptionTab from "./OptionTab";
+import TransactionCard from "./TransactionCard";
 
 function Dashboard() {
   return (
     <>
       <NavBar />
-      <div className="w-full md:flex-row justify-start items-start flex flex-col">
+      <div className="w-full md:flex-row justify-start items-start flex flex-col-reverse">
         <div className="walletSection md:w-1/4 w-full bg-slate-800 h-[100%] flex flex-col justify-center p-2 gap-2">
           <h1 className="text-white/70 text-center p-2 font-semibold">
             WALLETS
@@ -18,7 +19,7 @@ function Dashboard() {
           <Card />
           <Card />
         </div>
-        <div className="mainPage md:w-3/4 w-full flex px-2 gap-2 md:mt-0 mt-2 justify-start md:py-2">
+        <div className="mainPage md:w-3/4 w-full flex flex-col px-2 gap-2 md:mt-0 mt-2 justify-start md:py-2">
             <div className="mainTop flex justify-start w-full h-[200px] gap-2">
           <div className="flex flex-col w-full md:w-1/2 gap-2 h-full">
             <div className="balanceCard w-full h-full flex">
@@ -44,6 +45,13 @@ function Dashboard() {
             <OptionTab bgColor="#000000" text="+ Add Wallet" />
             <OptionTab bgColor="#000000" text="History" />
           </div>
+          </div>
+          <div className="mainBottom justify-start w-full gap-2 flex flex-col md:flex-row">
+            <div className="graphSection w-full md:w-1/2">G</div>
+            <div className="RecentsSection w-full md:w-1/2 border p-2 rounded-lg">
+                <h2 className="text-center">RECENTS</h2>
+                <TransactionCard wallet="Bank of India" amount="1200" type="expense"/>
+            </div>
           </div>
         </div>
       </div>
