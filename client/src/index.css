@@ -14,3 +14,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.historyGraph{
+  width: 100% !important;
+  min-height: 300px;
+  height: 100% !important;
+  max-height: 100% !important;
+}
+.h-calc{
+  min-height: calc(30vh - 20px);
+height: fit-content;
+}
+.h-calc2{
+  height: calc(62vh - 40px) !important;
+height: fit-content;
+}
+.RecentsSection{
+  height: 100%;
+}
+@media (max-width:410px) {
+  .h-calc2{
+    height: calc(77vh - 40px) !important;
+  height: fit-content;
+  }
+}
+@media (max-width:500px) {
+  .h-calc2{
+    height: calc(77vh - 60px) !important;
+  height: fit-content;
+  }
+}
+@media (max-width:600px) {
+  .h-calc2{
+    height: calc(77vh - 70px) !important;
+  height: fit-content;
+  }
+}
+::-webkit-scrollbar{
+  width: 5px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: black;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track{
+  background-color: rgb(78, 78, 78);
+}

@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/register" element={<SignUpForm />} />
-        <Route path="/dash" element={<Dashboard/>} />
+        <Route path="/dash" element={<Dashboard className="h-screen"/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
