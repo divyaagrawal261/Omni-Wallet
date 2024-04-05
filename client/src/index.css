@@ -31,6 +31,9 @@ height: fit-content;
 .RecentsSection{
   height: 100%;
 }
+.balanceCard{
+  background-image: linear-gradient(rgb(52, 255, 52),white);
+}
 @media (max-width:410px) {
   .h-calc2{
     height: calc(77vh - 40px) !important;

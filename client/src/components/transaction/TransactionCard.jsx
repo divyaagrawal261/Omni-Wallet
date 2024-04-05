@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from 'react-modal';
 import "./transaction.css"
 
-Modal.setAppElement('#root') // This line is needed for accessibility reasons
+Modal.setAppElement('#root')
 
 function TransactionCard(props) {
     const [modalIsOpen, setModalIsOpen] = useState(false);

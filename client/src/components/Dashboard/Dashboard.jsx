@@ -32,19 +32,11 @@ function Dashboard() {
         <div className="mainPage md:w-3/4 w-full flex flex-col px-2 gap-2 md:mt-0 mt-2 justify-start md:py-2 h-[100vh]">
             <div className="mainTop flex justify-start w-full h-calc gap-2">
           <div className="flex flex-col w-full md:w-1/2 h-full justify-start">
-            <div className="balanceCard w-full h-full flex mb-2">
-              <div className="w-full p-2 border rounded-lg flex justify-evenly">
+            <div className="w-full h-full flex mb-2">
+              <div className="w-full p-2 border rounded-lg flex justify-evenly h-full balanceCard">
                 <div className="flex flex-col w-full h-full justify-start items-start pl-2 gap-2">
-                  <h1 className="text-xl">Wallet Name</h1>
-                  <h1 className="text-xl">amount</h1>
-                </div>
-              </div>
-            </div>
-            <div className="balanceCard w-full h-full flex mb-2">
-              <div className="w-full p-2 border rounded-lg flex justify-evenly">
-                <div className="flex flex-col w-full h-full justify-start items-start pl-2 gap-2">
-                  <h1 className="text-xl">Wallet Name</h1>
-                  <h1 className="text-xl">amount</h1>
+                  <h1 className="text-2xl font-bold">Total Balance</h1>
+                  <h1 className="text-xl font-semibold">Amount</h1>
                 </div>
               </div>
             </div>
