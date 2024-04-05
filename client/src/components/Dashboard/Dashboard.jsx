@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "../NavBar/Navbar";
 import Card from "./WalletCard";
-import { FaWallet } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import OptionTab from "./OptionTab";
 import TransactionCard from "./TransactionCard";
 import Graph from "./Graph";
@@ -23,11 +23,6 @@ function Dashboard() {
           <Card />
           <Card />
           <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
           </div>
         <div className="mainPage md:w-3/4 w-full flex flex-col px-2 gap-2 md:mt-0 mt-2 justify-start md:py-2 h-[100vh]">
             <div className="mainTop flex justify-start w-full h-calc gap-2">
@@ -42,10 +37,10 @@ function Dashboard() {
             </div>
           </div>
           <div className="optionsContainer grid grid-cols-2 md:w-1/2 w-full gap-2 h-full">
-            <OptionTab bgColor="#000000" text="+ Add Income" />
-            <OptionTab bgColor="#000000" text="+ Add Expense" />
-            <OptionTab bgColor="#000000" text="+ Add Wallet" />
-            <OptionTab bgColor="#000000" text="History" />
+            <Link to="/income" className="h-full"><OptionTab bgColor="#000000" text="+ Add Income" /></Link>
+            <Link to="/expense" className="h-full"><OptionTab bgColor="#000000" text="+ Add Expense" /></Link>
+            <Link to="/wallets" className="h-full"><OptionTab bgColor="#000000" text="+ Add Wallet" /></Link>
+            <Link to="/history" className="h-full"><OptionTab bgColor="#000000" text="History" /></Link>
           </div>
           </div>
           <div className="mainBottom justify-start w-full gap-2 flex flex-col md:flex-row items-start h-calc2">

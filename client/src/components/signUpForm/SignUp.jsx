@@ -20,7 +20,7 @@ const SignUpForm=()=>{
                 <div className="input-box text-xl my-2">
                     <input type="password" className="p-2" placeholder="Password" required/>
                 </div>
-                <button type="submit" className="mt-5 bg-cyan-500 text-white p-3"><p className="text-xl">Login</p></button>
+                <button type="submit" className="mt-5 bg-cyan-500 text-white p-3"><p className="text-xl">Register</p></button>
                 <div className="register-link mt-5">
                     <p>Already have an account? <a onClick={handleClick} className="text-cyan-900 underline">Login</a></p>
                 </div>

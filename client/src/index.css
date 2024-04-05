@@ -34,6 +34,23 @@ height: fit-content;
 .balanceCard{
   background-image: linear-gradient(rgb(52, 255, 52),white);
 }
+.loadingAnimation{
+  height: 150px;
+  aspect-ratio: 1/1;
+  border-radius: 1000px;
+  border:1px solid rgb(0, 1, 36);
+  border-width: 10px 10px 10px 50px;
+  margin-bottom: 10px;
+  animation: spin infinite 2000ms linear;
+}
+@keyframes spin {
+  0%{
+    rotate: 0deg;
+  }
+  100%{
+    rotate: 360deg;
+  }  
+}
 @media (max-width:410px) {
   .h-calc2{
     height: calc(77vh - 40px) !important;
