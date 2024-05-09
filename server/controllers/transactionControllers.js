@@ -33,7 +33,7 @@ const createTransaction=asycnHandler(async(req,res)=>{
     {
         if(wallet.balance<amount)
         throw new Error("Insufficient balance");
-        wallet.walletBalance-=amount;
+        wallet.walletBalance-=Number(amount);
         const transaction=await Transaction.create({user_id, wallet_id, amount, date, note,type});
         const user=await User.findOneAndUpdate({_id:user_id},{$inc:{currentBalance:-amount}});
         }
