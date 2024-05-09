@@ -14,9 +14,9 @@ function AddIncome()
         <div className="addWalletSection p-2 h-[50vh] md:h-full md:w-1/3 lg:w-1/3 w-full justify-center lg:items-center md:items-center flex items-start">
             <form action="" className="flex flex-col w-full gap-2 p-2">
                 <input type="text" placeholder="Wallet Name" className="p-2"/>
-                <input type="number" placeholder="Opening Balance" className="p-2"/>
+                <input type="number" placeholder="Amount" className="p-2"/>
                 <input type="text" placeholder="Note" className="p-2"/>
-                <button className="bg-blue-500 p-2 text-white hover:bg-slate-50 hover:text-blue-500 delay hover:border">Create Wallet</button>
+                <button className="bg-blue-500 p-2 text-white hover:bg-slate-50 hover:text-blue-500 delay hover:border">Add Income</button>
             </form>
         </div>
         </div>

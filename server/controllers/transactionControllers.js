@@ -9,7 +9,7 @@ import expressAsyncHandler from "express-async-handler";
 //@route GET /api/transactions
 //@access private
 const getAllTransactions=asycnHandler(async(req,res)=>{
-    const Transactions=await Transaction.find({user_id:req.user.id})
+    const Transactions=await Transaction.find({user_id:req.user.id}).populate("wallet_id");
     res.status(200).json(Transactions);
 })
 
