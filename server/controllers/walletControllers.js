@@ -19,10 +19,10 @@ const createWallet=asycnHandler(async(req,res)=>{
     const user_id=req.user.id;
     const {walletBalance, walletName}=req.body;
     try{
-    if(walletBalance<0)
+    if(walletBalance<0 || walletBalance=="")
     throw new Error("Please enter a non-negative balance");
 
-    if(!walletName)
+    if(!walletName || walletName=="")
     res.status(400).json({message:"Please enter a Wallet Name"});
 
     const wallet=await Wallet.create({user_id, walletBalance, walletName});

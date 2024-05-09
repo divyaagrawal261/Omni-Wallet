@@ -10,6 +10,8 @@ import expressAsyncHandler from "express-async-handler";
 //@access private
 const getAllTransactions=asycnHandler(async(req,res)=>{
     const Transactions=await Transaction.find({user_id:req.user.id}).populate("wallet_id");
+    let transactions=Transactions;
+    transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
     res.status(200).json(Transactions);
 })
 
