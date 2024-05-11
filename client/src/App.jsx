@@ -9,6 +9,7 @@ import Wallets from "./components/Wallets/Wallets";
 import AllTransactions from "./components/transaction/allTransactions";
 import AddExpense from "./components/transaction/addExpense";
 import AddIncome from "./components/transaction/addIncome";
+import TokenExpired from "./components/token Expired/notFound";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/history" element={<AllTransactions/>} />
         <Route path="/income" element={<AddIncome/>} />
         <Route path="/expense" element={<AddExpense/>} />
+        <Route path="/logout" element={<TokenExpired/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

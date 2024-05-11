@@ -9,9 +9,7 @@ import expressAsyncHandler from "express-async-handler";
 //@route GET /api/transactions
 //@access private
 const getAllTransactions=asycnHandler(async(req,res)=>{
-    const Transactions=await Transaction.find({user_id:req.user.id}).populate("wallet_id");
-    let transactions=Transactions;
-    transactions.sort((a, b) => new Date(b.date) - new Date(a.date))
+    const Transactions=await Transaction.find({user_id:req.user.id}).populate("wallet_id").sort({date:-1});
     res.status(200).json(Transactions);
 })
 
@@ -33,16 +31,16 @@ const createTransaction=asycnHandler(async(req,res)=>{
     
     if(type==="expense")
     {
-        if(wallet.balance<amount)
+        if(Number(wallet.balance)<Number(amount))
         throw new Error("Insufficient balance");
         wallet.walletBalance-=Number(amount);
         const transaction=await Transaction.create({user_id, wallet_id, amount, date, note,type});
-        const user=await User.findOneAndUpdate({_id:user_id},{$inc:{currentBalance:-amount}});
+        const user = await User.findByIdAndUpdate(user_id, {$inc: {currentBalance:- amount}});
         }
         else
         {
             wallet.walletBalance+=Number(amount);
-            const user=await User.findOneAndUpdate({_id:user_id},{$inc:{currentBalance:amount}});
+            const user = await User.findByIdAndUpdate(user_id, {$inc: {currentBalance: amount}});
             const transaction=await Transaction.create({user_id, wallet_id, amount, date, note,type});
         }
 
@@ -84,4 +82,12 @@ const getTheMonthlyTransactions=expressAsyncHandler(async(req, res)=>{
     const transactions=await getMonthlyTransactions(req.params.year, req.params.month);
     res.status(200).json(transactions);
 })
-export {createTransaction, updateTransaction, getAllTransactions, getTheMonthlyTransactions};
+
+//@desc Get last 8 Transactions
+//@route GET /api/transactions/recents
+//@access private
+const getRecentTransactions=asycnHandler(async(req,res)=>{
+    const Transactions=await Transaction.find({user_id:req.user.id}).populate("wallet_id").sort({date:-1}).limit(8);
+    res.status(200).json(Transactions);
+})
+export {createTransaction, updateTransaction, getAllTransactions, getTheMonthlyTransactions, getRecentTransactions};

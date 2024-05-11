@@ -1,9 +1,11 @@
 import {React, useState, useEffect} from "react";
 import NavBar from "../NavBar/Navbar";
 import TransactionCard from "./TransactionCard";
+import {useNavigate} from "react-router-dom";
 
 function AllTransactions()
 {
+    const navigate = useNavigate();
     const storedData = localStorage.getItem('accessToken').toString();
 
     const [transactions, setTransactions]=useState([]);
@@ -23,6 +25,7 @@ function AllTransactions()
         });
       }, []);
 
+    try{
     return(
     <div>
         <NavBar/>
@@ -46,6 +49,12 @@ function AllTransactions()
         </div>
     </div>    
     )
+    }
+    catch(error)
+    {
+        navigate("/logout");
+    }
+
 }
 
 export default AllTransactions;

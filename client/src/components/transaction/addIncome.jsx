@@ -1,6 +1,7 @@
 import {React, useState, useEffect} from "react";
 import NavBar from "../NavBar/Navbar";
 import GIF from "../assets/Income.gif"
+import {useNavigate} from "react-router-dom";
 
 function makeRequest()
 {
@@ -27,9 +28,11 @@ function makeRequest()
 }
 function AddIncome()
 {
+    const navigate = useNavigate();
+
     const storedData = localStorage.getItem('accessToken').toString();
 
-    const [showLoader, setShowLoader]=useState(false);
+    const [showLoader, setShowLoader]=useState(true);
     const [wallets, setWallets]=useState([]);
 
     useEffect(()=>{
@@ -41,6 +44,7 @@ function AddIncome()
            }).then(response => response.json()).then(data => {setWallets(data); setShowLoader(false);})}, []
            )
     
+    try{
     return(
         <div>
         <NavBar/>
@@ -54,7 +58,7 @@ function AddIncome()
         <br />
         <div className="addWalletSection p-2 h-[50vh] md:h-full md:w-1/3 lg:w-1/3 w-full justify-center lg:items-center md:items-center flex items-start">
             <form action="" className="flex flex-col w-full gap-2 p-2">
-                <select name="" id="walletName" placeholder="Wallet Name" required>
+                <select name="" id="walletName" placeholder="Wallet Name" className="p-2" required>
                       {wallets.map((wallet,index)=>(<option key={index} value={wallet._id}>{wallet.walletName}</option>))}
                 </select>
                 <input type="number" placeholder="Amount" className="p-2" required/>
@@ -66,6 +70,11 @@ function AddIncome()
         </div>
     </div>  
     )
+}
+catch(error)
+{
+    navigate("/logout");
+}
 }
 
 export default AddIncome;

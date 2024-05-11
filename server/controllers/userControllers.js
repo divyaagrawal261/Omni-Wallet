@@ -85,7 +85,8 @@ catch(err)
 //@access private 
 const currentUser=asyncHandler(async(req,res)=>{
     try{
-    res.json(req.user);
+    const user=await User.findById(req.user.id);
+    res.json(user);
     }
     catch(err)
     {
