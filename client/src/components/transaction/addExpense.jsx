@@ -68,7 +68,7 @@ function AddExpense()
                       {wallets.map((wallet,index)=>(<option key={index} value={wallet._id}>{wallet.walletName}</option>))}
                 </select>
                 <input type="number" placeholder="Amount" className="p-2" required/>
-                <input type="text" placeholder="Note" className="p-2" required/>
+                <input type="text" placeholder="Note" className="p-2" />
                 <input type="date" id="date" required/>
                 <button className="bg-blue-500 p-2 text-white hover:bg-slate-50 hover:text-blue-500 delay hover:border" onClick={makeRequest}>Add Expense</button>
             </form>
